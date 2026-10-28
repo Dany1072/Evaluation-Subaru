@@ -7,11 +7,10 @@
 <!-- Tailwind CSS pour un design moderne et pro -->
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/emailjs.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script type="text/javascript">
-// Initialisation avec votre Public Key EmailJS
 (function() {
-emailjs.init("UZMLPHh-FIS15cgcY");
+emailjs.init("UZMLPhN-FIS15cpCY");
 })();
 </script>
 </head>
@@ -21,10 +20,10 @@ emailjs.init("UZMLPHh-FIS15cgcY");
 <header class="bg-slate-900 text-white py-4 px-6 shadow-md">
 <div class="max-w-xl mx-auto flex justify-between items-center">
 <div>
-<h1 class="text-xl font-bold tracking-wide">LÉVIS SUBARU</h1>
+<h1 class="text-xl font-bold tracking-wider">LÉVIS SUBARU</h1>
 <p class="text-xs text-slate-400">Évaluation de véhicule à distance</p>
 </div>
-<span id="step-indicator" class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-medium">Étape 1 sur 6</span>
+<span id="step-indicator" class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-medium">Étape 1 sur 5</span>
 </div>
 </header>
 
@@ -37,195 +36,184 @@ emailjs.init("UZMLPHh-FIS15cgcY");
 <!-- ÉTAPE 1 : NIV (VIN) -->
 <div class="form-step" id="step-1">
 <h2 class="text-xl font-bold mb-2 text-slate-900">1. Numéro de série (NIV)</h2>
-<p class="text-sm text-slate-500 mb-6">Entrez le numéro de série à 17 caractères de votre véhicule pour identifier son modèle exact.</p>
+<p class="text-xs text-slate-500 mb-6">Entrez le numéro de série à 17 caractères de votre véhicule pour identifier son modèle exact.</p>
 
 <div class="mb-4">
 <label class="block text-sm font-semibold text-slate-700 mb-2">Numéro de série (NIV / VIN)</label>
-<input type="text" id="vin-input" placeholder="Ex: 4S4BS... (17 caractères)" maxlength="17" class="w-full uppercase px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none font-mono text-lg tracking-wider" required>
+<input type="text" id="vin-input" placeholder="Ex: 4S4BS..." maxlength="17" class="w-full uppercase p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 focus:outline-none text-lg tracking-widest font-mono" required>
 </div>
 
 <div id="vehicle-preview" class="hidden mb-6 p-4 bg-blue-50 border border-blue-100 rounded-xl">
 <p class="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Véhicule identifié :</p>
-<p id="vehicle-specs" class="text-lg font-bold text-slate-800"></p>
+<p id="vehicle-specs" class="text-sm font-bold text-slate-800"></p>
 </div>
 
-<div class="flex justify-end mt-8">
-<button type="button" onclick="nextStep(1)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition-all">Suivant</button>
-</div>
+<button type="button" onclick="nextStep(1)" class="w-full bg-slate-900 text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-slate-800 transition">Continuer</button>
 </div>
 
 <!-- ÉTAPE 2 : Kilométrage -->
 <div class="form-step hidden" id="step-2">
 <h2 class="text-xl font-bold mb-2 text-slate-900">2. Kilométrage actuel</h2>
-<p class="text-sm text-slate-500 mb-6">Indiquez le kilométrage affiché au compteur.</p>
+<p class="text-xs text-slate-500 mb-6">Indiquez le kilométrage affiché au tableau de bord.</p>
+
+<div class="mb-6">
+<label class="block text-sm font-semibold text-slate-700 mb-2">Kilométrage (km)</label>
+<input type="number" id="kilometrage" placeholder="Ex: 45000" class="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 focus:outline-none text-lg" required>
+</div>
+
+<div class="flex gap-4">
+<button type="button" onclick="prevStep(2)" class="w-1/3 bg-slate-200 text-slate-700 font-semibold py-4 rounded-xl hover:bg-slate-300 transition">Retour</button>
+<button type="button" onclick="nextStep(2)" class="w-2/3 bg-slate-900 text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-slate-800 transition">Continuer</button>
+</div>
+</div>
+
+<!-- ÉTAPE 3 : Pneus et Clés -->
+<div class="form-step hidden" id="step-3">
+<h2 class="text-xl font-bold mb-2 text-slate-900">3. Pneus et Clés</h2>
+<p class="text-xs text-slate-500 mb-6">Informations sur l'équipement inclus avec le véhicule.</p>
 
 <div class="mb-4">
-<label class="block text-sm font-semibold text-slate-700 mb-2">Kilométrage (km)</label>
-<input type="number" id="kilometrage" placeholder="Ex: 65000" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none text-lg" required>
+<label class="block text-sm font-semibold text-slate-700 mb-2">Jeux de pneus fournis :</label>
+<select id="pneus" class="w-full p-4 border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-slate-900 focus:outline-none">
+<option value="Quatre saisons / Toutes saisons seulement">Quatre saisons / Toutes saisons seulement</option>
+<option value="Pneus d'hiver sur jantes inclus">Pneus d'hiver sur jantes inclus</option>
+<option value="Pneus d'hiver (sans jantes) inclus">Pneus d'hiver (sans jantes) inclus</option>
+<option value="Deux jeux complets sur jantes (Été + Hiver)">Deux jeux complets sur jantes (Été + Hiver)</option>
+</select>
 </div>
 
-<div class="flex justify-between mt-8">
-<button type="button" onclick="prevStep(2)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-6 py-3 rounded-xl font-semibold transition-all">Retour</button>
-<button type="button" onclick="nextStep(2)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition-all">Suivant</button>
-</div>
+<div class="mb-6">
+<label class="block text-sm font-semibold text-slate-700 mb-2">Nombre de clés disponibles :</label>
+<select id="cles" class="w-full p-4 border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-slate-900 focus:outline-none">
+<option value="1 clé">1 clé</option>
+<option value="2 clés" selected>2 clés</option>
+<option value="3 clés ou plus">3 clés ou plus</option>
+</select>
 </div>
 
-<!-- ÉTAPE 3 : Photos -->
-<div class="form-step hidden" id="step-3">
-<h2 class="text-xl font-bold mb-2 text-slate-900">3. Photos du véhicule</h2>
-<p class="text-sm text-slate-500 mb-6">Prenez ou téléversez les photos demandées clairement.</p>
-
-<div class="space-y-4 max-h-96 overflow-y-auto pr-1">
-<!-- Grille des photos -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Avant droit</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Avant gauche</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Arrière droit</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Arrière gauche</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Côté droit</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Côté gauche</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Intérieur avant</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
-<div><label class="text-xs font-semibold text-slate-600 block mb-1">Tableau de bord (km)</label><input type="file" accept="image/*" class="photo-file w-full text-xs text-slate-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"></div>
+<div class="flex gap-4">
+<button type="button" onclick="prevStep(3)" class="w-1/3 bg-slate-200 text-slate-700 font-semibold py-4 rounded-xl hover:bg-slate-300 transition">Retour</button>
+<button type="button" onclick="nextStep(3)" class="w-2/3 bg-slate-900 text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-slate-800 transition">Continuer</button>
 </div>
 </div>
 
-<div class="flex justify-between mt-8">
-<button type="button" onclick="prevStep(3)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-6 py-3 rounded-xl font-semibold transition-all">Retour</button>
-<button type="button" onclick="nextStep(3)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition-all">Suivant</button>
-</div>
-</div>
-
-<!-- ÉTAPE 4 : Questionnaire -->
+<!-- ÉTAPE 4 : État esthétique et photos -->
 <div class="form-step hidden" id="step-4">
-<h2 class="text-xl font-bold mb-2 text-slate-900">4. Questionnaire</h2>
-<p class="text-sm text-slate-500 mb-6">Répondez brièvement aux questions suivantes :</p>
+<h2 class="text-xl font-bold mb-2 text-slate-900">4. État esthétique & Photos</h2>
+<p class="text-xs text-slate-500 mb-6">Précisez l'état général de la carrosserie ou des impacts.</p>
 
-<div class="space-y-4">
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Avez-vous les 2 clés ?</label>
-<select id="q-keys" class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none">
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+<div class="mb-4">
+<label class="block text-sm font-semibold text-slate-700 mb-2">État de la carrosserie / Pare-brise :</label>
+<select id="accident" class="w-full p-4 border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-slate-900 focus:outline-none">
+<option value="Aucun accident / Carrosserie d'origine / Pare-brise impeccable">Aucun accident / Carrosserie d'origine / Pare-brise impeccable</option>
+<option value="Éraflures ou impact(s) mineur(s) réparé(s)">Éraflures ou impact(s) mineur(s) réparé(s)</option>
+<option value="Réparation d'accident ou impact à prévoir">Réparation d'accident ou impact à prévoir</option>
 </select>
 </div>
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Le véhicule a-t-il déjà été accidenté ?</label>
-<select id="q-accident" class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none">
-<option value="Non">Non</option>
-<option value="Oui">Oui</option>
-<option value="Je ne sais pas">Je ne sais pas</option>
-</select>
+
+<div class="mb-6">
+<label class="block text-sm font-semibold text-slate-700 mb-2">Photos du véhicule :</label>
+<input type="file" id="photos" multiple accept="image/*" class="w-full p-3 border border-dashed border-slate-400 rounded-xl bg-slate-50 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 cursor-pointer">
 </div>
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Le pare-brise est-il cassé ou brisé ?</label>
-<select id="q-windshield" class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none">
-<option value="Non">Non</option>
-<option value="Oui">Oui</option>
-</select>
-</div>
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Avez-vous les 8 roues (4 été / 4 hiver) ?</label>
-<select id="q-wheels" class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none">
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-</select>
+
+<div class="flex gap-4">
+<button type="button" onclick="prevStep(4)" class="w-1/3 bg-slate-200 text-slate-700 font-semibold py-4 rounded-xl hover:bg-slate-300 transition">Retour</button>
+<button type="button" onclick="nextStep(4)" class="w-2/3 bg-slate-900 text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-slate-800 transition">Continuer</button>
 </div>
 </div>
 
-<div class="flex justify-between mt-8">
-<button type="button" onclick="prevStep(4)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-6 py-3 rounded-xl font-semibold transition-all">Retour</button>
-<button type="button" onclick="nextStep(4)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-600/20 transition-all">Suivant</button>
-</div>
-</div>
-
-<!-- ÉTAPE 5 : Description générale & Coordonnées -->
+<!-- ÉTAPE 5 : État général & Coordonnées (Exactement comme sur votre photo) -->
 <div class="form-step hidden" id="step-5">
 <h2 class="text-xl font-bold mb-2 text-slate-900">5. État général & Coordonnées</h2>
-<p class="text-sm text-slate-500 mb-6">Précisez l'état général et vos coordonnées pour que Dany Leclerc puisse vous joindre.</p>
+<p class="text-xs text-slate-500 mb-6">Précisez l'état général et vos coordonnées pour que Dany Leclerc puisse vous joindre.</p>
 
-<div class="space-y-4 mb-4">
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Votre Nom</label>
-<input type="text" id="client-name" placeholder="Nom et prénom" class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none" required>
-</div>
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Téléphone / Courriel</label>
-<input type="text" id="client-contact" placeholder="Téléphone ou courriel" class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none" required>
-</div>
-</div>
-<div>
-<label class="block text-sm font-semibold text-slate-700 mb-1">Description générale (Freins, pneus, rouille, bosses...)</label>
-<textarea id="comments" rows="3" placeholder="Décrivez l'état général..." class="w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none"></textarea>
-</div>
+<div class="mb-4">
+<label class="block text-sm font-semibold text-slate-700 mb-2">Votre Nom</label>
+<input type="text" id="client-name" placeholder="Ex: Jean Tremblay" class="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 focus:outline-none" required>
 </div>
 
-<!-- Mention Légale obligatoire -->
-<div class="bg-amber-50 border border-amber-200 p-4 rounded-xl mb-6">
-<p class="text-xs text-amber-800 leading-relaxed font-medium">
-<strong>Avis important :</strong> Le prix accordé est subjectif selon les données et photos fournies par le client. Le véhicule sera évalué physiquement lors de la transaction en concession.
-</p>
+<div class="mb-4">
+<label class="block text-sm font-semibold text-slate-700 mb-2">Téléphone / Courriel</label>
+<input type="text" id="client-contact" placeholder="Ex: 418 000-0000" class="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 focus:outline-none" required>
 </div>
 
-<div class="flex justify-between mt-8">
-<button type="button" onclick="prevStep(5)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-6 py-3 rounded-xl font-semibold transition-all">Retour</button>
-<button type="submit" id="submit-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg shadow-emerald-600/20 transition-all">Soumettre</button>
-</div>
+<div class="mb-4">
+<label class="block text-sm font-semibold text-slate-700 mb-2">Description générale (Freins, pneus, rouille, bosses...)</label>
+<textarea id="comments" rows="3" placeholder="Freins ok et état général super..." class="w-full p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-900 focus:outline-none"></textarea>
 </div>
 
-<!-- ÉTAPE 6 : Succès -->
-<div class="form-step hidden text-center py-8" id="step-6">
-<div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">✓</div>
-<h2 class="text-2xl font-bold mb-2 text-slate-900">Demande soumise avec succès !</h2>
-<p class="text-slate-600 mb-6 max-w-sm mx-auto">Lévis Subaru vous remercie d’avoir complété le formulaire. Dany Leclerc a reçu votre dossier et vous contactera rapidement.</p>
-<button type="button" onclick="location.reload()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold">Fermer</button>
+<div class="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+<p class="text-xs text-amber-800"><strong>Avis important :</strong> Le prix accordé est subjectif selon les données et photos fournies par le client. Le véhicule sera évalué physiquement lors de la transaction en concession.</p>
+</div>
+
+<div class="flex gap-4">
+<button type="button" onclick="prevStep(5)" class="w-1/3 bg-slate-200 text-slate-700 font-semibold py-4 rounded-xl hover:bg-slate-300 transition">Retour</button>
+<button type="submit" id="submit-btn" class="w-2/3 bg-emerald-600 text-white font-semibold py-4 rounded-xl shadow-lg hover:bg-emerald-700 transition">Soumettre</button>
+</div>
 </div>
 
 </form>
+
+<!-- ÉTAPE DE SUCCÈS -->
+<div id="success-screen" class="hidden text-center py-8">
+<div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">✓</div>
+<h2 class="text-2xl font-bold text-slate-900 mb-2">Évaluation transmise !</h2>
+<p class="text-sm text-slate-600 mb-6">Merci ! Les informations ont bien été envoyées à Dany Leclerc chez Lévis Subaru.</p>
+<button onclick="location.reload()" class="bg-slate-900 text-white font-semibold px-6 py-3 rounded-xl shadow hover:bg-slate-800 transition text-sm">Effectuer une autre évaluation</button>
+</div>
+
 </div>
 </main>
 
-<!-- Script de gestion des étapes et de l'envoi EmailJS -->
+<!-- Pied de page -->
+<footer class="text-center py-4 text-xs text-slate-400">
+© 2026 Lévis Subaru — Outil réservé aux conseillers aux ventes
+</footer>
+
+<!-- Scripts JavaScript -->
 <script>
 let currentStep = 1;
 let vehicleDataSummary = "";
 
+document.getElementById('vin-input').addEventListener('input', async function(e) {
+let vin = e.target.value.trim();
+if (vin.length === 17) {
+document.getElementById('vehicle-specs').innerText = "Recherche du véhicule en cours...";
+document.getElementById('vehicle-preview').classList.remove('hidden');
+try {
+let response = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/${vin}?format=json`);
+let data = await response.json();
+if (data.Results && data.Results.length > 0) {
+let res = data.Results[0];
+let make = res.Make || '';
+let model = res.Model || '';
+let year = res.ModelYear || '';
+let trim = res.Trim || '';
+vehicleDataSummary = `${year} ${make} ${model} ${trim}`.trim();
+document.getElementById('vehicle-specs').innerText = vehicleDataSummary;
+}
+} catch (err) {
+vehicleDataSummary = "NIV : " + vin;
+document.getElementById('vehicle-specs').innerText = vehicleDataSummary;
+}
+} else {
+vehicleDataSummary = "NIV : " + vin;
+document.getElementById('vehicle-preview').classList.add('hidden');
+}
+});
+
 function updateStepIndicator() {
-document.getElementById('step-indicator').innerText = `Étape ${currentStep} sur 6`;
+document.getElementById('step-indicator').innerText = `Étape ${currentStep} sur 5`;
 }
 
-async function nextStep(step) {
+function nextStep(step) {
 if (step === 1) {
-const vin = document.getElementById('vin-input').value.trim();
-if (vin.length < 5) {
+let vinVal = document.getElementById('vin-input').value.trim();
+if (vinVal.length < 5) {
 alert("Veuillez entrer un numéro de série valide.");
 return;
 }
-// Décodage VIN en temps réel via API NHTSA
-try {
-const response = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/${vin}?format=json`);
-const data = await response.json();
-if (data.Results && data.Results.length > 0) {
-const r = data.Results[0];
-const year = r.ModelYear || '';
-const make = r.Make || '';
-const model = r.Model || '';
-const trim = r.Trim || '';
-vehicleDataSummary = `${year} ${make} ${model} ${trim}`.trim();
-if (vehicleDataSummary.length > 2) {
-document.getElementById('vehicle-specs').innerText = vehicleDataSummary;
-document.getElementById('vehicle-preview').classList.remove('hidden');
-} else {
-vehicleDataSummary = "Véhicule standard (NIV: " + vin + ")";
-document.getElementById('vehicle-specs').innerText = vehicleDataSummary;
-document.getElementById('vehicle-preview').classList.remove('hidden');
 }
-}
-} catch(e) {
-vehicleDataSummary = "NIV: " + vin;
-}
-}
-
 document.getElementById(`step-${currentStep}`).classList.add('hidden');
 currentStep++;
 document.getElementById(`step-${currentStep}`).classList.remove('hidden');
@@ -239,9 +227,9 @@ document.getElementById(`step-${currentStep}`).classList.remove('hidden');
 updateStepIndicator();
 }
 
-// Soumission finale du formulaire via EmailJS
-document.getElementById('eval-form').addEventListener('submit', function(e) {
-e.preventDefault();
+// Soumission finale via EmailJS
+document.getElementById('eval-form').addEventListener('submit', function(event) {
+event.preventDefault();
 
 const btn = document.getElementById('submit-btn');
 btn.innerText = "Envoi en cours...";
@@ -252,25 +240,23 @@ to_email: "dany.leclerc@levissubaru.com",
 client_name: document.getElementById('client-name').value,
 client_contact: document.getElementById('client-contact').value,
 vin: document.getElementById('vin-input').value,
-vehicule_info: vehicleDataSummary,
+vehicle_info: vehicleDataSummary,
 kilometrage: document.getElementById('kilometrage').value,
-q_keys: document.getElementById('q-keys').value,
-q_accident: document.getElementById('q-accident').value,
-q_windshield: document.getElementById('q-windshield').value,
-q_wheels: document.getElementById('q-wheels').value,
-comments: document.getElementById('comments').value || "Aucun commentaire",
-photos_links: "Photos transmises dans le dossier client (vérification visuelle en concession)."
+pneus: document.getElementById('pneus').value,
+cles: document.getElementById('cles').value,
+accident: document.getElementById('accident').value,
+comments: document.getElementById('comments').value || "Aucune description"
 };
 
-// Envoi via vos identifiants EmailJS
-emailjs.send("service_8cnhcxf", "template_ef327qf", templateParams)
+emailjs.send("service_dultenf", "template_sf3ifqr", templateParams)
 .then(function(response) {
 document.getElementById(`step-${currentStep}`).classList.add('hidden');
-currentStep = 6;
-document.getElementById('step-6').classList.remove('hidden');
+currentStep = 5;
+document.getElementById('eval-form').classList.add('hidden');
+document.getElementById('success-screen').classList.remove('hidden');
 document.getElementById('step-indicator').innerText = "Terminé";
 }, function(error) {
-alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+alert("Erreur lors de l'envoi. Veuillez réessayer.");
 btn.innerText = "Soumettre";
 btn.disabled = false;
 });
